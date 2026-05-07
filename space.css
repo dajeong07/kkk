@@ -1,0 +1,118 @@
+:root {
+    --space-size: 700vw;       
+    --item-width: 240px;      
+    --neon-color: #00f3ff;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #000;
+    background-image: url('spacestar.png'); 
+    background-repeat: repeat;
+    background-size: 800px;
+    background-attachment: fixed; 
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.universe {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--space-size); 
+    height: 300vh;
+    background: transparent;
+    will-change: transform;
+}
+
+.lost-item {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    z-index: 10;
+    /* transition: transform 0.3s ease; -> 드래그 시 반응속도를 위해 제거하거나 active에만 적용 */
+}
+
+.lost-item.active .graphic img {
+    filter: drop-shadow(0 0 15px var(--neon-color)) drop-shadow(0 0 30px var(--neon-color));
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+}
+
+.lost-item .graphic img {
+    width: var(--item-width);
+    height: auto;
+    filter: drop-shadow(0 15px 35px rgba(0,0,0,0.9));
+    -webkit-user-drag: none;
+}
+
+.caption {
+    width: 240px; /* 물건 크기에 맞춰 캡션도 조정 */
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(12px);
+    color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 15px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.4s ease;
+    pointer-events: none;
+    border: 1px solid var(--neon-color);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+    width: 240px; 
+    transition: opacity 0.4s ease, transform 0.4s ease; /* transform 포함 확인 */
+    /* 아래 내용 추가 */
+    will-change: transform; 
+    backface-visibility: hidden;
+}
+
+.lost-item.active .caption {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.caption .title {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--neon-color);
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(0, 243, 255, 0.3);
+    padding-bottom: 5px;
+    text-shadow: 0 0 8px var(--neon-color);
+}
+
+.caption .text {
+    font-size: 14px;
+    line-height: 1.5;
+    word-break: keep-all;
+    text-align: center;
+}
+
+.caption {
+    /* 기존 스타일 유지하면서 아래 부분 수정 */
+    border-radius: 0; /* 둥근 모서리 삭제 (직각) */
+    border: 1px solid rgba(255, 255, 255, 0.4); /* 얇은 흰색 테두리 */
+    background: rgba(0, 0, 0, 0.7); /* 배경은 조금 더 어둡게 해서 대비 강조 */
+    padding: 15px 20px;
+    font-weight: 300; /* 글씨체는 얇게 해서 세련되게 */
+    line-height: 1.6;
+    word-break: keep-all;
+    
+    /* 화질 보정 */
+    -webkit-font-smoothing: antialiased;
+    backface-visibility: hidden;
+}
+
+.lost-item img {
+    width: 250px;
+    height: auto;
+    filter: grayscale(1) brightness(0.8);
+    transition: 0.3s;
+}
